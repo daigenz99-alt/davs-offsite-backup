@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DAVS Offsite Backup</title>
+  <meta name="description" content="DAVS Offsite Backup は、運営者が自ら運用するシステムの暗号化済みバックアップを、運営者本人の Google Drive に保存するための自社専用ツールです。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <p class="brand">DAVS Offsite Backup</p>
+    <nav aria-label="ページ">
+      <a href="index.html" aria-current="page">アプリについて</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>DAVS Offsite Backup について</h1>
+
+    <p class="lead">DAVS Offsite Backup は、運営者が自ら運用するシステムのデータベースのバックアップを、<strong>暗号化したうえで</strong>運営者本人の Google Drive に保存するための、<strong>自社専用</strong>のツールです。</p>
+
+    <section>
+      <h2>対象となる利用者</h2>
+      <p>このツールは運営者本人の Google アカウントでのみ使用します。一般の利用者向けのサービスではなく、第三者に Google アカウントでのログインや認可を求めることはありません。</p>
+    </section>
+
+    <section>
+      <h2>何をするツールか</h2>
+      <ol>
+        <li>運営者のサーバー上で、復元確認まで済んだデータベースのバックアップだけを対象にします。</li>
+        <li>バックアップを <a href="https://github.com/FiloSottile/age">age</a>（公開鍵暗号によるファイル暗号化ツール）で暗号化します。サーバーには暗号化用の公開鍵だけを置き、復号に必要な秘密鍵はサーバーにも Google Drive にも置きません。</li>
+        <li>オープンソースの <a href="https://rclone.org/">rclone</a> を使って、暗号化済みファイルと、照合用の管理情報（ファイル名・サイズ・SHA-256 ハッシュ・作成日時など。秘密情報は含みません）を Google Drive に保存します。暗号化していないデータは保存しません。</li>
+        <li>保存後、同じファイルを Google Drive から取得し直して SHA-256 ハッシュを照合し、正しく保存されたことを確認します。</li>
+        <li>必要なときに、運営者の手元の PC が暗号化済みファイルを取得し、手元にある秘密鍵で復号して、外部から切り離した環境で復元できるかを確認します。</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Google Drive へのアクセス範囲</h2>
+      <p>このツールが要求する権限は <code>https://www.googleapis.com/auth/drive.file</code> だけです。この権限でアクセスできるのは、このツール（同じ OAuth クライアント）が作成したファイルなどに限られ、Google Drive 内のそれ以外のファイルを一覧表示したり、読み取ったりすることはできません。</p>
+      <p>ただし、この権限は「アップロード専用」ではありません。このツールが作成したファイルについては、仕組み上、読み取り・変更・削除が可能です。このツールのプログラムは、既存ファイルの上書き・削除・同期（ミラーリング）・移動の操作を行わないように作られていますが、権限そのものがそれらを禁止するわけではありません。</p>
+      <p>このツールが Google Drive に対して行う操作は次のとおりです。</p>
+      <ul>
+        <li>このツールが作成した保存先の一覧とハッシュの取得（同じファイルを重複保存・上書きしないための確認）</li>
+        <li>暗号化済みファイルと照合用管理情報の新規保存（同名の既存ファイルがある場合は上書きしません）</li>
+        <li>保存したファイルの取得（保存後の照合と、運営者の PC での復元確認のため）</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>削除と保存期間</h2>
+      <p>保存期間は現時点で定めておらず、このツールによる自動削除は行いません。Google Drive 上のファイルの削除は、運営者が Google Drive の画面から手動で行います。</p>
+    </section>
+
+    <section>
+      <h2>アクセスの取り消し</h2>
+      <p>Google アカウントの「<a href="https://myaccount.google.com/connections">サードパーティ製のアプリとサービス</a>」から、DAVS Offsite Backup のアクセスをいつでも取り消せます。取り消した後は、このツールは Google Drive にアクセスできなくなります。すでに保存されたファイルは自動では削除されないため、必要に応じて Google Drive から手動で削除してください。</p>
+    </section>
+
+    <p>個人情報と認証情報の取り扱いについては、<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+  </main>
+
+  <footer>
+    <p>DAVS Offsite Backup ・ <a href="privacy.html">プライバシーポリシー</a></p>
+    <p>お問い合わせ: <a href="mailto:daigenz.claude@gmail.com">daigenz.claude@gmail.com</a></p>
+  </footer>
+</body>
+</html>

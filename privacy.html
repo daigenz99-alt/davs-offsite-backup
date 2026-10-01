@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>プライバシーポリシー | DAVS Offsite Backup</title>
+  <meta name="description" content="DAVS Offsite Backup が Google ユーザーデータ、認証情報、暗号化鍵をどのように扱うかを説明します。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <p class="brand">DAVS Offsite Backup</p>
+    <nav aria-label="ページ">
+      <a href="index.html">アプリについて</a>
+      <a href="privacy.html" aria-current="page">プライバシーポリシー</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>プライバシーポリシー</h1>
+    <p class="meta">制定日: 2026年10月1日 ／ 運営者: davs-offsite</p>
+
+    <section>
+      <h2>1. このポリシーの対象</h2>
+      <p>このポリシーは、DAVS Offsite Backup（以下「本ツール」）が Google API を通じて取得・利用する情報の取り扱いを説明するものです。本ツールは、運営者が自ら運用するシステムのバックアップを、運営者本人の Google Drive に暗号化して保存するための自社専用ツールであり、運営者本人の Google アカウントでのみ使用します。第三者の Google アカウントでの利用は想定していません。</p>
+    </section>
+
+    <section>
+      <h2>2. 本ツールがアクセスする Google ユーザーデータ</h2>
+      <p>本ツールが要求する Google の権限（スコープ）は <code>https://www.googleapis.com/auth/drive.file</code> だけです。</p>
+      <ul>
+        <li>アクセスできるのは、本ツール（同じ OAuth クライアント）が作成したファイルなどに限られます。Google Drive 内のその他のファイル、Gmail、連絡先、カレンダー等にはアクセスしません。</li>
+        <li>本ツールが作成するのは、暗号化済みのバックアップファイルと、照合用の管理情報（ファイル名・サイズ・SHA-256 ハッシュ・作成日時など）です。</li>
+        <li>本ツールが作成したファイルに対して行う操作は、保存先の一覧とハッシュの取得、新規保存、取得（照合と復元確認のため）です。本ツールのプログラムは上書き・削除・同期・移動を行いません。ただし、この権限自体は本ツールが作成したファイルの読み取り・変更・削除を許可するものであり、「アップロード専用」の権限ではありません。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. 利用目的</h2>
+      <p>取得した情報は、運営者自身のバックアップを保存し、正しく保存されたことを確認し、必要時に復元できることを確認する目的にのみ使用します。広告、分析、機械学習の学習、その他の目的には使用しません。</p>
+    </section>
+
+    <section>
+      <h2>4. 保存・共有</h2>
+      <ul>
+        <li>保存先は運営者本人の Google Drive です。運営者以外の第三者へ Google ユーザーデータを提供・販売・共有することはありません（法令に基づく場合を除きます）。</li>
+        <li>Google Drive に保存するデータは、保存前に公開鍵暗号（age）で暗号化しています。暗号化していないデータは保存しません。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. 認証情報と暗号化鍵の取り扱い</h2>
+      <ul>
+        <li><strong>OAuth の認可情報（トークン）とクライアント情報</strong>: 運営者が管理するサーバーと運営者の PC の、ソースコードとは別の設定ファイルに保存し、サーバーでは所有者以外が読み取れないファイル権限（600）を必須としています。これらをソースコードの管理対象、ログ、チャット等へ出力しません。</li>
+        <li><strong>暗号化鍵</strong>: サーバーに置くのは暗号化用の公開鍵だけです。復号に必要な秘密鍵は運営者の PC で管理し、サーバーにも Google Drive にも置きません。予備は、パスフレーズで暗号化したうえで別の媒体に保管します。</li>
+        <li>秘密鍵が Google Drive に保存されないため、Google Drive 上のファイルだけでは内容を復号できません。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. 保存期間と削除</h2>
+      <p>Google Drive 上のバックアップの保存期間は現時点で定めておらず、本ツールによる自動削除は行いません。削除は運営者が Google Drive の画面から手動で行います。</p>
+    </section>
+
+    <section>
+      <h2>7. アクセスの取り消しと保存ファイルの削除</h2>
+      <ol>
+        <li>Google アカウントの「<a href="https://myaccount.google.com/connections">サードパーティ製のアプリとサービス</a>」で DAVS Offsite Backup を選び、アクセスを削除します。以後、本ツールは Google Drive にアクセスできません。</li>
+        <li>保存済みのファイルは自動では削除されません。必要に応じて、Google Drive の画面から本ツールが作成したバックアップ用フォルダを削除し、ゴミ箱からも削除します。</li>
+        <li>運営者は、サーバーと PC に保存した認可情報の設定ファイルも削除します。</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>8. Google API サービスのユーザーデータに関するポリシーへの準拠</h2>
+      <p>DAVS Offsite Backup による Google API から受け取った情報の使用および他のアプリへの転送は、<a href="https://developers.google.com/terms/api-services-user-data-policy">Google API サービスのユーザーデータに関するポリシー</a>（限定的使用の要件を含む）に準拠します。</p>
+    </section>
+
+    <section>
+      <h2>9. このウェブサイトについて</h2>
+      <p>このページは GitHub Pages で公開している静的なページです。本ページ自体は Cookie、アクセス解析、外部スクリプトを使用していません。ホスティング事業者（GitHub）によるアクセス記録の取り扱いは、<a href="https://docs.github.com/ja/site-policy/privacy-policies/github-general-privacy-statement">GitHub のプライバシーステートメント</a>をご覧ください。</p>
+    </section>
+
+    <section>
+      <h2>10. 改定とお問い合わせ</h2>
+      <p>本ポリシーを改定する場合は、このページで改定日とともに公表します。お問い合わせは次の連絡先までお願いします。</p>
+      <p>連絡先: <a href="mailto:daigenz.claude@gmail.com">daigenz.claude@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>DAVS Offsite Backup ・ <a href="index.html">アプリについて</a></p>
+  </footer>
+</body>
+</html>
